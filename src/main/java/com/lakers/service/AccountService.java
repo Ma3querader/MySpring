@@ -1,4 +1,4 @@
-package com.lakers.dao;
+package com.lakers.service;
 
 import com.lakers.domain.Account;
 
@@ -6,10 +6,10 @@ import java.util.List;
 
 /**
  * @Author: panyusheng
- * @Date: 2020/5/14 0:43
+ * @Date: 2020/5/14 0:45
  * @Version 1.0
  */
-public interface AccountDao {
+public interface AccountService {
     /**
      * 查询所有
      * @return
