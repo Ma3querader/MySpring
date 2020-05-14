@@ -1,8 +1,11 @@
+import com.lakers.SpringConfiguration;
 import com.lakers.domain.Account;
 import com.lakers.service.AccountService;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.List;
@@ -18,7 +21,8 @@ public class TestIocXml {
 
     @Before
     public void init() {
-        ApplicationContext ac = new ClassPathXmlApplicationContext("bean.xml");
+//        ApplicationContext ac = new ClassPathXmlApplicationContext("bean.xml");
+        ApplicationContext ac = new AnnotationConfigApplicationContext(SpringConfiguration.class);
         service = ac.getBean("accountService", AccountService.class);
     }
 
