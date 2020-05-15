@@ -13,14 +13,15 @@ import java.sql.SQLException;
  * 数据库连接的工具类，它用于从数据源中获取一个连接，并且实现和线程的绑定
  * @Version 1.0
  */
-@Component
 public class ConnectionUtils {
 
     private ThreadLocal<Connection> tl = new ThreadLocal<Connection>();
 
-    @Autowired
     private DataSource dataSource;
 
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     /**
      * 获取当前线程上的连接

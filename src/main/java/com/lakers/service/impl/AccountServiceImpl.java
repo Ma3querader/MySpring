@@ -17,17 +17,22 @@ import java.util.List;
  * @Date: 2020/5/14 0:46
  * @Version 1.0
  */
-@Service("accountService")
 public class AccountServiceImpl implements AccountService {
 
-    @Autowired
+//    @Autowired
 //    @Qualifier("accountDaoImpl")
 //    @Resource(name = "accountDaoImpl")
     private AccountDao accountDao;
 
-
-    @Autowired
     private TransactionManager txManager;
+
+    public void setAccountDao(AccountDao accountDao) {
+        this.accountDao = accountDao;
+    }
+
+    public void setTxManager(TransactionManager txManager) {
+        this.txManager = txManager;
+    }
 
     public List<Account> findAllAccount() {
         try {

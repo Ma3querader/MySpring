@@ -11,11 +11,13 @@ import java.sql.SQLException;
  * 事务管理相关的工具类，它包含了，开启事务，提交事务，回滚事务和释放连接
  * @Version 1.0
  */
-@Component
 public class TransactionManager {
 
-    @Autowired
     private ConnectionUtils connectionUtils;
+
+    public void setConnectionUtils(ConnectionUtils connectionUtils) {
+        this.connectionUtils = connectionUtils;
+    }
 
     /**
      * 开启事务

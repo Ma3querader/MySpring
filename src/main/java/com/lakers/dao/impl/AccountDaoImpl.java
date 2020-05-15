@@ -17,14 +17,20 @@ import java.util.List;
  * @Date: 2020/5/14 0:45
  * @Version 1.0
  */
-@Repository("accountDao")
+
 public class AccountDaoImpl implements AccountDao {
 
-    @Autowired
     private QueryRunner runner;
 
-    @Autowired
     private ConnectionUtils connectionUtils;
+
+    public void setRunner(QueryRunner runner) {
+        this.runner = runner;
+    }
+
+    public void setConnectionUtils(ConnectionUtils connectionUtils) {
+        this.connectionUtils = connectionUtils;
+    }
 
     public List<Account> findAllAccount() {
         try {

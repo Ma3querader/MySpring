@@ -15,14 +15,19 @@ import java.lang.reflect.Proxy;
  * 用于创建Service的代理对象的工厂
  * @Version 1.0
  */
-@Component
 public class BeanFactory {
 
-    @Autowired
     private AccountService accountService;
 
-    @Autowired
     private TransactionManager txManager;
+
+    public void setAccountService(AccountService accountService) {
+        this.accountService = accountService;
+    }
+
+    public void setTxManager(TransactionManager txManager) {
+        this.txManager = txManager;
+    }
 
     public AccountService getAccountService() {
         return (AccountService)Proxy.newProxyInstance(accountService.getClass().getClassLoader(), accountService.getClass().getInterfaces(), new InvocationHandler() {
