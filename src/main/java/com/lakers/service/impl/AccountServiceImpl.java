@@ -60,25 +60,15 @@ public class AccountServiceImpl implements AccountService {
     }
 
     public void transfer(String sourceName, String targetName, Float money) {
-        try {
-            txManager.beginTransaction();
-            Account source = accountDao.findByName(sourceName);
-            Account target = accountDao.findByName(targetName);
-            source.setMoney(source.getMoney()-money);
-            target.setMoney(target.getMoney()+money);
-            //更新两个账户
-            accountDao.updateAccount(source);
-            //模拟转账异常
-            int i=1/0;
-            accountDao.updateAccount(target);
-            txManager.commit();
-        } catch (Exception e) {
-            txManager.rollback();
-            throw new RuntimeException(e);
-        } finally {
-            txManager.release();
-        }
-
+        Account source = accountDao.findByName(sourceName);
+        Account target = accountDao.findByName(targetName);
+        source.setMoney(source.getMoney()-money);
+        target.setMoney(target.getMoney()+money);
+        //更新两个账户
+        accountDao.updateAccount(source);
+        //模拟转账异常
+        int i=1/0;
+        accountDao.updateAccount(target);
     }
 
 }
