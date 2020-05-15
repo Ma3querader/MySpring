@@ -39,4 +39,14 @@ public interface AccountService {
      * @param accountId
      */
     void deleteAccount(Integer accountId);
+
+    /**
+     * 转账
+     * @param sourceName
+     * @param targetName
+     * @param money
+     * @return
+     */
+    void transfer(String sourceName, String targetName, Float money);
+
 }

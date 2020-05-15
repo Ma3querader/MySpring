@@ -1,4 +1,5 @@
 import com.lakers.SpringConfiguration;
+import com.lakers.dao.AccountDao;
 import com.lakers.domain.Account;
 import com.lakers.service.AccountService;
 import org.junit.Before;
@@ -57,6 +58,11 @@ public class TestIocXml {
     @Test
     public void testDelete() {
         service.deleteAccount(4);
+    }
+
+    @Test
+    public void testTransfer() {
+        service.transfer("张学友", "古尔丹", 100f);
     }
 
 }
