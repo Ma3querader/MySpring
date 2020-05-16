@@ -22,11 +22,6 @@ public interface AccountDao {
      */
     Account findAccountById(Integer accountId);
 
-    /**
-     * 保存
-     * @param account
-     */
-    void saveAccount(Account account);
 
     /**
      * 更新
@@ -35,14 +30,8 @@ public interface AccountDao {
     void updateAccount(Account account);
 
     /**
-     * 删除
-     * @param accountId
-     */
-    void deleteAccount(Integer accountId);
-
-    /**
      * 根据名字查询
      * @param name
      */
-    Account findByName(String name);
+    Account findAccountByName(String name);
 }

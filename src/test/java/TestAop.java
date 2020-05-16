@@ -28,10 +28,8 @@ public class TestAop {
     }
 
     @Test
-    public void testSave() {
-        Account account = new Account();
-        account.setName("基尔加丹");
-        service.saveAccount(account);
+    public void testTransfer() {
+        service.transfer("aaa", "bbb", 100f);
     }
 
 }

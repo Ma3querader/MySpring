@@ -1,91 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
        xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+                http://www.springframework.org/schema/beans/spring-beans.xsd
+                http://www.springframework.org/schema/tx
+                http://www.springframework.org/schema/tx/spring-tx.xsd
+                http://www.springframework.org/schema/aop
+                http://www.springframework.org/schema/aop/spring-aop.xsd">
 
+    <bean id="accountService" class="com.lakers.service.impl.AccountServiceImpl">
+        <property name="accountDao" ref="accountDao"></property>
+    </bean>
 
-    <context:component-scan base-package="com.lakers"></context:component-scan>
+    <bean id="accountDao" class="com.lakers.dao.impl.AccountDaoImpl">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
 
-    <!-- 配置spring开启注解AOP的支持 -->
-    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+        <property name="url" value="jdbc:mysql://localhost:3306/test"></property>
+        <property name="username" value="root"></property>
+        <property name="password" value="root"></property>
+    </bean>
 
-    <!--<bean id="proxyAccountService" factory-bean="beanFactory" factory-method="getAccountService"></bean>-->
+    <!--配置事务管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
 
-    <!--<bean id="beanFactory" class="com.lakers.beanFactory.BeanFactory">-->
-        <!--<property name="accountService" ref="accountService"></property>-->
-        <!--<property name="txManager" ref="txManager"></property>-->
-    <!--</bean>-->
+    <!--事务配置-->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <!--配置事务属性-->
+        <tx:attributes>
+            <tx:method name="*" read-only="false" propagation="REQUIRED"/>
+            <tx:method name="find*" read-only="true" propagation="SUPPORTS"></tx:method>
+        </tx:attributes>
+    </tx:advice>
 
-    <!--<bean id="accountService" class="com.lakers.service.impl.AccountServiceImpl">-->
-        <!--&lt;!&ndash; 注入dao &ndash;&gt;-->
-        <!--<property name="accountDao" ref="accountDao"></property>-->
-    <!--</bean>-->
+    <!--配置aop-->
+    <aop:config>
+        <!--配置切入点-->
+        <aop:pointcut id="pt1" expression="execution(* com.lakers.service.impl.*.*(..))"></aop:pointcut>
 
-    <!--<bean id="accountDao" class="com.lakers.dao.impl.AccountDaoImpl">-->
-        <!--<property name="runner" ref="runner"></property>-->
-        <!--<property name="connectionUtils" ref="connectionUtils"></property>-->
-    <!--</bean>-->
-
-    <!--<bean id="runner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">-->
-        <!--<constructor-arg name="ds" ref="dataSource"></constructor-arg>-->
-    <!--</bean>-->
-
-    <!--<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">-->
-        <!--<property name="driverClass" value="com.mysql.jdbc.Driver"></property>-->
-        <!--<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/test"></property>-->
-        <!--<property name="user" value="root"></property>-->
-        <!--<property name="password" value="root"></property>-->
-    <!--</bean>-->
-
-    <!--<bean id="connectionUtils" class="com.lakers.uitl.ConnectionUtils">-->
-        <!--&lt;!&ndash; 注入数据源&ndash;&gt;-->
-        <!--<property name="dataSource" ref="dataSource"></property>-->
-    <!--</bean>-->
-
-    <!--<bean id="txManager" class="com.lakers.uitl.TransactionManager">-->
-        <!--&lt;!&ndash; 注入ConnectionUtils &ndash;&gt;-->
-        <!--<property name="connectionUtils" ref="connectionUtils"></property>-->
-    <!--</bean>-->
-
-
-    <!--<bean id="accountService" class="com.lakers.service.impl.AccountServiceImpl"></bean>-->
-
-    <!--<bean id="logger" class="com.lakers.uitl.Logger"></bean>-->
-
-    <!-- 配置aop -->
-    <!--<aop:config>-->
-        <!--&lt;!&ndash; 配置切入点 &ndash;&gt;-->
-        <!--<aop:pointcut id="pt1" expression="execution(* com.lakers.service.impl.*.*(..))"></aop:pointcut>-->
-        <!--&lt;!&ndash; 配置切面 &ndash;&gt;-->
-        <!--<aop:aspect id="logAdvice" ref="logger">-->
-            <!--&lt;!&ndash; 配置前置通知：在切入点方法执行之前执行 &ndash;&gt;-->
-            <!--&lt;!&ndash;<aop:before method="beforePrintLog" pointcut-ref="pt1" ></aop:before>&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash; 配置后置通知：在切入点方法正常执行之后值。它和异常通知永远只能执行一个 &ndash;&gt;&ndash;&gt;-->
-            <!--&lt;!&ndash;<aop:after-returning method="afterReturningPrintLog" pointcut-ref="pt1"></aop:after-returning>&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash; 配置异常通知：在切入点方法执行产生异常之后执行。它和后置通知永远只能执行一个 &ndash;&gt;&ndash;&gt;-->
-            <!--&lt;!&ndash;<aop:after-throwing method="afterThrowingPrintLog" pointcut-ref="pt1"></aop:after-throwing>&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash; 配置最终通知：无论切入点方法是否正常执行它都会在其后面执行 &ndash;&gt;&ndash;&gt;-->
-            <!--&lt;!&ndash;<aop:after method="afterPrintLog" pointcut-ref="pt1"></aop:after>&ndash;&gt;-->
-
-            <!--&lt;!&ndash; 配置环绕通知 详细的注释请看Logger类中&ndash;&gt;-->
-            <!--<aop:around method="aroundPringLog" pointcut-ref="pt1"></aop:around>-->
-
-        <!--</aop:aspect>-->
-    <!--</aop:config>-->
-
-
-
-
-
-
-
-
-
+        <!--建立事务的通知和切入点表达式的关系-->
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="pt1"/>
+    </aop:config>
 
 
 </beans>
+
+
+
+
+
+
+
+

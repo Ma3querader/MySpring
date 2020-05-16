@@ -17,90 +17,32 @@ import java.util.List;
  * @Date: 2020/5/14 0:46
  * @Version 1.0
  */
-@Service("accountService")
 public class AccountServiceImpl implements AccountService {
+
+    private AccountDao accountDao;
+
+    public void setAccountDao(AccountDao accountDao) {
+        this.accountDao = accountDao;
+    }
+
     public List<Account> findAllAccount() {
-        return null;
+        return accountDao.findAllAccount();
     }
 
     public Account findAccountById(Integer accountId) {
-        return null;
-    }
-
-    public void saveAccount(Account account) {
-        System.out.println("执行了保存");
-    }
-
-    public void updateAccount(Account account) {
-        System.out.println("执行了更新"+account);
-    }
-
-    public void deleteAccount(Integer accountId) {
-        System.out.println("执行了删除");
+        return accountDao.findAccountById(accountId);
     }
 
     public void transfer(String sourceName, String targetName, Float money) {
-
-    }
-
-//    @Autowired
-//    @Qualifier("accountDaoImpl")
-//    @Resource(name = "accountDaoImpl")
-//    private AccountDao accountDao;
-//
-//    private TransactionManager txManager;
-//
-//    public void setAccountDao(AccountDao accountDao) {
-//        this.accountDao = accountDao;
-//    }
-//
-//    public void setTxManager(TransactionManager txManager) {
-//        this.txManager = txManager;
-//    }
-//
-//    public List<Account> findAllAccount() {
-//        try {
-//            txManager.beginTransaction();
-//            List<Account> accounts = accountDao.findAllAccount();
-//            txManager.commit();
-//            return accounts;
-//        } catch (Exception e) {
-//            txManager.rollback();
-//            throw new RuntimeException(e);
-//        } finally {
-//            txManager.release();
-//        }
-//    }
-//
-//    public Account findAccountById(Integer accountId) {
-//        return accountDao.findAccountById(accountId);
-//    }
-//
-//    public void saveAccount(Account account) {
-//        accountDao.saveAccount(account);
-//    }
-//
-//    public void updateAccount(Account account) {
-//        accountDao.updateAccount(account);
-//    }
-//
-//    public void deleteAccount(Integer accountId) {
-//        accountDao.deleteAccount(accountId);
-//    }
-//
-//    public void transfer(String sourceName, String targetName, Float money) {
-//        Account source = accountDao.findByName(sourceName);
-//        Account target = accountDao.findByName(targetName);
-//        source.setMoney(source.getMoney()-money);
-//        target.setMoney(target.getMoney()+money);
-//        //更新两个账户
-//        accountDao.updateAccount(source);
-//        //模拟转账异常
+        //1.根据名称查询两个账户
+        Account source = accountDao.findAccountByName(sourceName);
+        Account target = accountDao.findAccountByName(targetName);
+        //2.修改两个账户的金额
+        source.setMoney(source.getMoney()-money);//转出账户减钱
+        target.setMoney(target.getMoney()+money);//转入账户加钱
+        //3.更新两个账户
+        accountDao.updateAccount(source);
 //        int i=1/0;
-//        accountDao.updateAccount(target);
-//    }
-
-
-
-
+        accountDao.updateAccount(target);
+    }
 }

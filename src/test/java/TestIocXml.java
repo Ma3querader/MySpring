@@ -25,7 +25,7 @@ import java.util.List;
 public class TestIocXml {
 
     @Autowired
-    @Qualifier("proxyAccountService")
+//    @Qualifier("proxyAccountService")
     private AccountService service;
 
 //    @Before
@@ -47,26 +47,7 @@ public class TestIocXml {
         System.out.println(a);
     }
 
-    @Test
-    public void testSave() {
-        Account a = new Account();
-        a.setName("火云邪神");
-        a.setMoney(4000000f);
-        service.saveAccount(a);
-    }
 
-    @Test
-    public void testUpdate() {
-        Account a = new Account();
-        a.setName("火云邪神233");
-        a.setId(4);
-        service.updateAccount(a);
-    }
-
-    @Test
-    public void testDelete() {
-        service.deleteAccount(4);
-    }
 
     @Test
     public void testTransfer() {

@@ -23,24 +23,6 @@ public interface AccountService {
     Account findAccountById(Integer accountId);
 
     /**
-     * 保存
-     * @param account
-     */
-    void saveAccount(Account account);
-
-    /**
-     * 更新
-     * @param account
-     */
-    void updateAccount(Account account);
-
-    /**
-     * 删除
-     * @param accountId
-     */
-    void deleteAccount(Integer accountId);
-
-    /**
      * 转账
      * @param sourceName
      * @param targetName
