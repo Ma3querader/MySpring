@@ -9,7 +9,10 @@
         http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 
-    <!--<context:component-scan base-package="com.lakers"></context:component-scan>-->
+    <context:component-scan base-package="com.lakers"></context:component-scan>
+
+    <!-- 配置spring开启注解AOP的支持 -->
+    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 
     <!--<bean id="proxyAccountService" factory-bean="beanFactory" factory-method="getAccountService"></bean>-->
 
@@ -50,30 +53,30 @@
     <!--</bean>-->
 
 
-    <bean id="accountService" class="com.lakers.service.impl.AccountServiceImpl"></bean>
+    <!--<bean id="accountService" class="com.lakers.service.impl.AccountServiceImpl"></bean>-->
 
-    <bean id="logger" class="com.lakers.uitl.Logger"></bean>
+    <!--<bean id="logger" class="com.lakers.uitl.Logger"></bean>-->
 
     <!-- 配置aop -->
-    <aop:config>
-        <!-- 配置切入点 -->
-        <aop:pointcut id="pt1" expression="execution(* com.lakers.service.impl.*.*(..))"></aop:pointcut>
-        <!-- 配置切面 -->
-        <aop:aspect id="logAdvice" ref="logger">
-            <!-- 配置前置通知：在切入点方法执行之前执行 -->
-            <!--<aop:before method="beforePrintLog" pointcut-ref="pt1" ></aop:before>-->
-            <!--&lt;!&ndash; 配置后置通知：在切入点方法正常执行之后值。它和异常通知永远只能执行一个 &ndash;&gt;-->
-            <!--<aop:after-returning method="afterReturningPrintLog" pointcut-ref="pt1"></aop:after-returning>-->
-            <!--&lt;!&ndash; 配置异常通知：在切入点方法执行产生异常之后执行。它和后置通知永远只能执行一个 &ndash;&gt;-->
-            <!--<aop:after-throwing method="afterThrowingPrintLog" pointcut-ref="pt1"></aop:after-throwing>-->
-            <!--&lt;!&ndash; 配置最终通知：无论切入点方法是否正常执行它都会在其后面执行 &ndash;&gt;-->
-            <!--<aop:after method="afterPrintLog" pointcut-ref="pt1"></aop:after>-->
+    <!--<aop:config>-->
+        <!--&lt;!&ndash; 配置切入点 &ndash;&gt;-->
+        <!--<aop:pointcut id="pt1" expression="execution(* com.lakers.service.impl.*.*(..))"></aop:pointcut>-->
+        <!--&lt;!&ndash; 配置切面 &ndash;&gt;-->
+        <!--<aop:aspect id="logAdvice" ref="logger">-->
+            <!--&lt;!&ndash; 配置前置通知：在切入点方法执行之前执行 &ndash;&gt;-->
+            <!--&lt;!&ndash;<aop:before method="beforePrintLog" pointcut-ref="pt1" ></aop:before>&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash; 配置后置通知：在切入点方法正常执行之后值。它和异常通知永远只能执行一个 &ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;<aop:after-returning method="afterReturningPrintLog" pointcut-ref="pt1"></aop:after-returning>&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash; 配置异常通知：在切入点方法执行产生异常之后执行。它和后置通知永远只能执行一个 &ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;<aop:after-throwing method="afterThrowingPrintLog" pointcut-ref="pt1"></aop:after-throwing>&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash; 配置最终通知：无论切入点方法是否正常执行它都会在其后面执行 &ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;<aop:after method="afterPrintLog" pointcut-ref="pt1"></aop:after>&ndash;&gt;-->
 
-            <!-- 配置环绕通知 详细的注释请看Logger类中-->
-            <aop:around method="aroundPringLog" pointcut-ref="pt1"></aop:around>
+            <!--&lt;!&ndash; 配置环绕通知 详细的注释请看Logger类中&ndash;&gt;-->
+            <!--<aop:around method="aroundPringLog" pointcut-ref="pt1"></aop:around>-->
 
-        </aop:aspect>
-    </aop:config>
+        <!--</aop:aspect>-->
+    <!--</aop:config>-->
 
 
 

@@ -17,6 +17,7 @@ import java.util.List;
  * @Date: 2020/5/14 0:46
  * @Version 1.0
  */
+@Service("accountService")
 public class AccountServiceImpl implements AccountService {
     public List<Account> findAllAccount() {
         return null;
