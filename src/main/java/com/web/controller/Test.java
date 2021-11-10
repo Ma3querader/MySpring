@@ -15,7 +15,6 @@ public class Test {
         ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
         Object bean = ac.getBean("fireDao");
         System.out.println(bean);
-
     }
 
 }
